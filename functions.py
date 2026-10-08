@@ -219,17 +219,25 @@ def h_fermion_ring(L, N, t=1.0, dtype=np.complex128):
                 sign *= (-1)**(count_below(dst, s1))   # string of cdag_dst
                 b     = indices[cdag(dst,s1)] #find the entry
 
-                H[b, a] += amp * sign #fill the H matrix
+                #H[b, a] += amp * sign #fill the H matrix
+
+                rows.append(b)
+                cols.append(a)
+                vals.append(amp * sign)
+
+                
     #
     #
     # Assign matrix elements (stored in sparse format as shown in the line right below)
     # according to the pseudocode above.
     #
     #
-    H_= H
+    #H_= H #to see the matrix
     H = sp.coo_matrix((vals, (rows, cols)), shape=(dim, dim), dtype=np.complex128).tocsr()
     H.sum_duplicates()
-    return H_,H.astype(dtype), states,H
+    
+    #return H.astype(dtype), states,H_
+    return H.astype(dtype), states
 
 
 
@@ -260,17 +268,25 @@ def h_fermion_ring_open(L, N, t=1.0, dtype=np.complex128):
                 sign *= (-1)**(count_below(dst, s1))   # string of cdag_dst
                 b     = indices[cdag(dst,s1)] #find the entry
 
-                H[b, a] += amp * sign #fill the H matrix
+                #H[b, a] += amp * sign #fill the H matrix
+
+                rows.append(b)
+                cols.append(a)
+                vals.append(amp * sign)
+
+                
     #
     #
     # Assign matrix elements (stored in sparse format as shown in the line right below)
     # according to the pseudocode above.
     #
     #
-    H_= H
+    #H_= H #to see the matrix
     H = sp.coo_matrix((vals, (rows, cols)), shape=(dim, dim), dtype=np.complex128).tocsr()
     H.sum_duplicates()
-    return H_,H.astype(dtype), states,H
+    
+    #return H.astype(dtype), states,H_
+    return H.astype(dtype), states
 
 
 
